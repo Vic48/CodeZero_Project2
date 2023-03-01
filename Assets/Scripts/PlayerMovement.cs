@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public float speed = 4f;
 
     public float gravity = -18f;
-    public float jumpHeight = 0.03f;
+    public float jumpHeight = 0.3f;
 
     public Transform groundCheck;
     public float groundDistance = 0.1f;
