@@ -5,9 +5,9 @@ using UnityEngine.Diagnostics;
 
 public class Ladder : MonoBehaviour
 {
-    public Transform playerMovement;
-    bool insideLadder;
-    public float ladderHeight = 3.3f;
+    public Transform controller;
+    bool insideLadder = false;
+    public float speed = 3.3f;
     public PlayerMovement playerInput;
 
     void Start()
@@ -20,7 +20,8 @@ public class Ladder : MonoBehaviour
         if(col.gameObject.tag == "Ladder")
         {
             playerInput.enabled = false;
-            insideLadder = !insideLadder;
+            insideLadder = true;
+            Debug.Log("TOUCHING LADDER");
         }
     }
     private void OnTriggerExit(Collider col)
@@ -28,15 +29,22 @@ public class Ladder : MonoBehaviour
         if (col.gameObject.tag == "Ladder")
         {
             playerInput.enabled = true;
-            insideLadder = !insideLadder;
+            insideLadder = false;
+            Debug.Log("AWAY");
         }
     }
     // Update is called once per frame
     void Update()
     {
-        if (insideLadder && Input.GetKey("w"))
+        if (insideLadder == true && Input.GetKeyDown(KeyCode.W))
         {
-            playerMovement.transform.position += Vector3.up / ladderHeight;
+            controller.transform.position += Vector3.up / speed;
+            Debug.Log("GOING UP");
+        }
+        if (insideLadder == true && Input.GetKeyDown(KeyCode.S))
+        {
+            controller.transform.position += Vector3.down / speed;
+            Debug.Log("GOING DOWN");
         }
     }
 }
