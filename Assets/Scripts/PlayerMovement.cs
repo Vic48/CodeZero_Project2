@@ -11,8 +11,11 @@ public class PlayerMovement : MonoBehaviour
     public float gravity = -18f;
     public float jumpHeight = 0.03f;
 
-    //public float crouchHeight;
-    public GameObject Cam;
+    public float normalHeight, crouchHeight;
+
+    //public GameObject Cam;
+    //public GameObject playerBody;
+    //public GameObject playerMain;
 
     public Transform groundCheck;
     public float groundDistance = 0.1f;
@@ -23,12 +26,6 @@ public class PlayerMovement : MonoBehaviour
     private bool isGrounded = false; //false = on the ground
     private bool jump = false; //nvr jump
     private bool isCrouch = false;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        Debug.Log(speed);
-    }
 
     // Update is called once per frame
     void Update()
@@ -66,43 +63,31 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftShift) && isGrounded && jump)
         {
             speed = 12f;
-            Debug.Log("SHIFT DOWN, ON GROUND, NVR JUMP" + speed);
+            Debug.Log("SHIFT DOWN, ON GROUND" + speed);
         }
         else if (Input.GetKeyUp(KeyCode.LeftShift) && isGrounded && jump)
         {
             speed = 6f;
-            Debug.Log("SHIFT UP, ON GROUND, NVR JUMP" + speed);
+            Debug.Log("SHIFT UP, ON GROUND" + speed);
         }
 
-        //  ---------   CROUCH ------------- ...?
-        if (!isCrouch)
+        //  ---------   CROUCH -------------
+        if (Input.GetKeyDown(KeyCode.C))
         {
-            if (Input.GetKeyDown(KeyCode.C) && isGrounded)
-            {
-                //not crouching but debug and speed works
-                //crouchHeight = this.transform.position.y - 0.5f;
-                //transform.position = new Vector3(0, 0.5f, 0);
-                //velocity = new Vector3(0, 0.5f, 0);
-                Cam.transform.position = new Vector3(Cam.transform.position.x, Cam.transform.position.y - 0.2f, Cam.transform.position.z); 
-                speed = 2f;
-                Debug.Log("CROUCH");
-                isCrouch = true;
-            }
+            controller.height = crouchHeight;
+
+            speed = 2f;
+            Debug.Log("CROUCH");
+            isCrouch = true;
         }
-        else
+        if (Input.GetKeyUp(KeyCode.C))
         {
-            if (Input.GetKeyUp(KeyCode.C) && isGrounded)
-            {
-                //crouchHeight = this.transform.position.y;
-                //transform.position = new Vector3(0, 1f, 0);
-                //velocity = new Vector3(0, 1f, 0);
-                Cam.transform.position = new Vector3(Cam.transform.position.x, Cam.transform.position.y + 0.2f, Cam.transform.position.z);
-                speed = 6f;
-                Debug.Log("STAND");
-                isCrouch = false;
-            }
+            controller.height = normalHeight;
+
+            speed = 6f;
+            Debug.Log("STAND");
+            isCrouch = false;
         }
-        
         
 
         controller.Move(velocity);
