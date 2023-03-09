@@ -15,36 +15,51 @@ public class Ladder : MonoBehaviour
         playerInput = GetComponent<PlayerMovement>();
         insideLadder = false;
     }
-    private void OnTriggerEnter(Collider col)
+    private void OnTriggerStay(Collider col)
     {
-        if(col.gameObject.tag == "Ladder")
+        if (col.gameObject.tag == "Ladder")
         {
             playerInput.enabled = false;
             insideLadder = true;
             Debug.Log("TOUCHING LADDER");
+
+            if (insideLadder == true && Input.GetKeyDown(KeyCode.W))
+            {
+                controller.transform.position += Vector3.up / speed;
+                Debug.Log("GOING UP");
+            }
+            if (insideLadder == true && Input.GetKeyDown(KeyCode.S))
+            {
+                controller.transform.position += Vector3.down / speed;
+                Debug.Log("GOING DOWN");
+            }
+        }
+
+        if (insideLadder == true && col.gameObject.tag == "LadderTop")
+        {
+            if(insideLadder == true && Input.GetKeyDown(KeyCode.W))
+            {
+                controller.transform.position += - Vector3.right / speed;
+                Debug.Log("GOING AJSVDAGJSAVH");
+            }
+            Debug.Log("dfdfdfdfdfd LADDER");
+
         }
     }
+
     private void OnTriggerExit(Collider col)
     {
-        if (col.gameObject.tag == "Ladder")
+        if (col.gameObject.tag == "LadderTop")
         {
             playerInput.enabled = true;
             insideLadder = false;
             Debug.Log("AWAY");
         }
     }
+
     // Update is called once per frame
     void Update()
     {
-        if (insideLadder == true && Input.GetKeyDown(KeyCode.W))
-        {
-            controller.transform.position += Vector3.up / speed;
-            Debug.Log("GOING UP");
-        }
-        if (insideLadder == true && Input.GetKeyDown(KeyCode.S))
-        {
-            controller.transform.position += Vector3.down / speed;
-            Debug.Log("GOING DOWN");
-        }
+        
     }
 }
