@@ -13,19 +13,13 @@ public class PlayerMovement : MonoBehaviour
 
     public float normalHeight, crouchHeight;
 
-    //public GameObject Cam;
-    //public GameObject playerBody;
-    //public GameObject playerMain;
-
     public Transform groundCheck;
     public float groundDistance = 0.1f;
     public LayerMask groundMask;
     public float groundStop = -0.1f;
 
-    private Vector3 velocity;
-    private bool isGrounded = false; //false = on the ground
-    private bool jump = false; //nvr jump
-    private bool isCrouch = false;
+    public Vector3 velocity;
+    public bool isGrounded = false; //false = on the ground
 
     // Update is called once per frame
     void Update()
@@ -54,18 +48,17 @@ public class PlayerMovement : MonoBehaviour
         {
             if (isGrounded)
             {
-                velocity.y = jumpHeight; //cancel 
-                jump = true;
+                velocity.y = jumpHeight; //cancel
             }
         }
 
         //  ---------   SPRINT -------------
-        if (Input.GetKeyDown(KeyCode.LeftShift) && isGrounded && jump)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && isGrounded)
         {
             speed = 12f;
             Debug.Log("SHIFT DOWN, ON GROUND" + speed);
         }
-        else if (Input.GetKeyUp(KeyCode.LeftShift) && isGrounded && jump)
+        else if (Input.GetKeyUp(KeyCode.LeftShift) && isGrounded)
         {
             speed = 6f;
             Debug.Log("SHIFT UP, ON GROUND" + speed);
@@ -78,7 +71,6 @@ public class PlayerMovement : MonoBehaviour
 
             speed = 2f;
             Debug.Log("CROUCH");
-            isCrouch = true;
         }
         if (Input.GetKeyUp(KeyCode.C))
         {
@@ -86,7 +78,6 @@ public class PlayerMovement : MonoBehaviour
 
             speed = 6f;
             Debug.Log("STAND");
-            isCrouch = false;
         }
         
 
