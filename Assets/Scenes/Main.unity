@@ -7011,6 +7011,8 @@ MonoBehaviour:
   cooldown: 0.5
   _bulletHolePrefab: {fileID: 8888448341124204848, guid: aab4705c4f22cf74ebcef6901b0433c1, type: 3}
   _scrumpPrefab: {fileID: 4699569174692092249, guid: ac0ac9af42b94424caf226a33705b860, type: 3}
+  _xiaoPrefab: {fileID: 4153370733797057184, guid: 852ed41ae3d234d4fb967eee716bae32, type: 3}
+  _buttPrefab: {fileID: 394948334981429513, guid: 04e5e65d67c301d4a90aad9fba854561, type: 3}
 --- !u!1 &1005019031
 GameObject:
   m_ObjectHideFlags: 0

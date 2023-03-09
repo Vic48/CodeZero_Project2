@@ -10,6 +10,8 @@ public class WeaponFire : MonoBehaviour
 
     [SerializeField] private GameObject _bulletHolePrefab; //Bullet hole
     [SerializeField] private GameObject _scrumpPrefab; //Scrump
+    [SerializeField] private GameObject _xiaoPrefab; //Xiao
+    [SerializeField] private GameObject _buttPrefab; //Butt
 
     // Start is called before the first frame update
     void Start()
@@ -41,7 +43,7 @@ public class WeaponFire : MonoBehaviour
             RaycastHit hitInfo; //Contains raycast hit infomation
             if (Physics.Raycast(origin: transform.position, direction: transform.forward, out hitInfo))
             {
-                float x = Random.Range(0,2);
+                float x = Random.Range(0,4);
                 
                 if (x == 0)
                 {
@@ -54,7 +56,7 @@ public class WeaponFire : MonoBehaviour
                     Destroy(obj, 1);
                 }
 
-                else if (x == 1)
+                if (x == 1)
                 {
                     //returns true if ray touches something
                     GameObject obj = Instantiate(_scrumpPrefab, hitInfo.point + (hitInfo.normal * 0.01f), Quaternion.identity);
@@ -63,7 +65,28 @@ public class WeaponFire : MonoBehaviour
 
                     //can show bullet hole image if hit wall/ground etc - can fade away after awhile
                     Destroy(obj, 1);
-                    Debug.Log("scrump");
+                }
+
+                if (x == 2)
+                {
+                    //returns true if ray touches something
+                    GameObject obj = Instantiate(_xiaoPrefab, hitInfo.point + (hitInfo.normal * 0.01f), Quaternion.identity);
+                    //Instantiating the bullet hole object
+                    obj.transform.LookAt(hitInfo.point, hitInfo.normal);
+
+                    //can show bullet hole image if hit wall/ground etc - can fade away after awhile
+                    Destroy(obj, 1);
+                }
+
+                if (x == 3)
+                {
+                    //returns true if ray touches something
+                    GameObject obj = Instantiate(_buttPrefab, hitInfo.point + (hitInfo.normal * 0.01f), Quaternion.identity);
+                    //Instantiating the bullet hole object
+                    obj.transform.LookAt(hitInfo.point, hitInfo.normal);
+
+                    //can show bullet hole image if hit wall/ground etc - can fade away after awhile
+                    Destroy(obj, 1);
                 }
 
             }
