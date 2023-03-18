@@ -27,6 +27,7 @@ public class WeaponFire : MonoBehaviour
         {
             //shoot
             StartCoroutine(FireWeapon());
+            gameObject.GetComponent<AudioSource>().Play();
         }
     }
 
