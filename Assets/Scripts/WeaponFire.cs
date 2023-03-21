@@ -6,7 +6,13 @@ public class WeaponFire : MonoBehaviour
 {
     public float cooldown = 0.5f;
 
-    private bool isFiring = false;
+    public bool isFiring = false;
+
+    public int damage = 5;
+
+    public Projectile projectileScript;
+
+    //private int damage;
 
     [SerializeField] private GameObject _bulletHolePrefab; //Bullet hole
     [SerializeField] private GameObject _scrumpPrefab; //Scrump
@@ -27,6 +33,7 @@ public class WeaponFire : MonoBehaviour
         {
             //shoot
             StartCoroutine(FireWeapon());
+            Debug.Log("FIRING");
             gameObject.GetComponent<AudioSource>().Play();
         }
     }
@@ -35,6 +42,8 @@ public class WeaponFire : MonoBehaviour
     private IEnumerator FireWeapon()
     {
         isFiring = true;
+
+        Projectile throwProjectile = gameObject.GetComponent<Projectile>();
 
         //shooting stuff
         RaycastHit hit;
@@ -95,8 +104,8 @@ public class WeaponFire : MonoBehaviour
             //check if item can be hit
             if (hit.collider.GetComponent<TargetScript>() != null)
             {
-                //if target can be hit, destroy
-                hit.collider.GetComponent<TargetScript>().DoHit();
+                //if target can be hit, attack
+                hit.collider.GetComponent<TargetScript>().TakeDamage(damage);
             }
         }
 

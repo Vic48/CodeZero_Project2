@@ -4,10 +4,25 @@ using UnityEngine;
 
 public class TargetScript : MonoBehaviour
 {
-    //mayb can give health to targets
+    [Header("Stats")]
+    public int health = 10;
 
-    public void DoHit()
+    private void Start()
     {
-        Destroy(this.gameObject);
+        //Debug.Log(health);
+    }
+
+    //int = how much health reduced
+    public void TakeDamage(int damage)
+    {
+        //minus health here
+        health -= damage;
+
+        Debug.Log(health);
+
+        if (health <= 0)
+        {
+            Destroy(this.gameObject);
+        }
     }
 }
