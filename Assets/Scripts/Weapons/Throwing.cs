@@ -15,7 +15,7 @@ public class Throwing : MonoBehaviour
     public float throwCooldown;
 
     [Header("Throwing")]
-    public KeyCode throwKey = KeyCode.Mouse1;
+    public KeyCode throwKey = KeyCode.Mouse0;
     public float throwForce;
     public float throwUpwardForce;
 
@@ -33,8 +33,10 @@ public class Throwing : MonoBehaviour
     {
         if (Input.GetKeyDown(throwKey) && readyToThrow && totalThrows > 0)
         {
+            Debug.Log("THROW GRENADE");
             Throw();
         }
+
     }
 
 

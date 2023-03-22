@@ -56,12 +56,12 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftShift) && isGrounded)
         {
             speed = 12f;
-            Debug.Log("SHIFT DOWN, ON GROUND" + speed);
+            //Debug.Log("SHIFT DOWN, ON GROUND" + speed);
         }
         else if (Input.GetKeyUp(KeyCode.LeftShift) && isGrounded)
         {
             speed = 6f;
-            Debug.Log("SHIFT UP, ON GROUND" + speed);
+            //Debug.Log("SHIFT UP, ON GROUND" + speed);
         }
 
         //  ---------   CROUCH -------------
@@ -70,14 +70,14 @@ public class PlayerMovement : MonoBehaviour
             controller.height = crouchHeight;
 
             speed = 2f;
-            Debug.Log("CROUCH");
+            //Debug.Log("CROUCH");
         }
         if (Input.GetKeyUp(KeyCode.C))
         {
             controller.height = normalHeight;
 
             speed = 6f;
-            Debug.Log("STAND");
+            //Debug.Log("STAND");
         }
         
 

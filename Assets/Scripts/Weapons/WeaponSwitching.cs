@@ -59,7 +59,7 @@ public class WeaponSwitching : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha2) && transform.childCount >= 2)
         {
             selectedWeapon = 1;
-            Debug.Log("pistol");
+            //Debug.Log("pistol");
             throwScript.readyToThrow = false;
             throwScript.readyToFire = true;
         }

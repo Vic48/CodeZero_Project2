@@ -38,21 +38,21 @@ public class WeaponFire : MonoBehaviour
     void Update()
     {
         //check if its rifle
-        if (switchWeapon.selectedWeapon == 0)
+        if (switchWeapon.selectedWeapon == 1)
         {
             //Fire1 = left ctrl or left mouse button
             if (Input.GetButtonDown("Fire1") & !isFiring && isScoped == true)
             {
                 //shoot
                 StartCoroutine(FireWeapon());
-                Debug.Log("FIRING");
+                //Debug.Log("FIRING");
                 gameObject.GetComponent<AudioSource>().Play();
             }
 
             //Fire 2 = left alt or right mouse button
             if (Input.GetButtonDown("Fire2"))
             {
-                Debug.Log("SCOPE RIFLE");
+                //Debug.Log("SCOPE RIFLE");
                 isScoped = !isScoped;
                 animator.SetBool("Scoped", isScoped);
 
@@ -66,14 +66,14 @@ public class WeaponFire : MonoBehaviour
                 }
             }
         }
-        else if (switchWeapon.selectedWeapon == 1 || switchWeapon.selectedWeapon == 2)
+        else if (switchWeapon.selectedWeapon == 0 || switchWeapon.selectedWeapon == 2)
         {
             //Fire1 = left ctrl or left mouse button
             if (Input.GetButtonDown("Fire1") & !isFiring)
             {
                 //shoot
                 StartCoroutine(FireWeapon());
-                Debug.Log("FIRING");
+                //Debug.Log("FIRING");
                 gameObject.GetComponent<AudioSource>().Play();
             }
         }
