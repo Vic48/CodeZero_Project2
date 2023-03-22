@@ -5,7 +5,7 @@ using UnityEngine;
 public class TargetScript : MonoBehaviour
 {
     [Header("Stats")]
-    public int health = 10;
+    public int health = 20;
 
     private void Start()
     {

@@ -10,9 +10,18 @@ public class WeaponFire : MonoBehaviour
 
     public int damage = 5;
 
-    public Projectile projectileScript;
+    public WeaponSwitching switchWeapon;
 
-    //private int damage;
+    [Header("Rifle")]
+    public Animator animator;
+    private bool isScoped = false;
+    public GameObject scopeOverlay;
+
+    [Header("Camera Stuff")]
+    public GameObject weaponCamera;
+    public Camera mainCam;
+    public float scopedFOV = 15f;
+    private float normalFOV;
 
     [SerializeField] private GameObject _bulletHolePrefab; //Bullet hole
     [SerializeField] private GameObject _scrumpPrefab; //Scrump
@@ -28,13 +37,45 @@ public class WeaponFire : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Fire1 = left ctrl or left mouse button
-        if (Input.GetButtonDown("Fire1") & !isFiring)
+        //check if its rifle
+        if (switchWeapon.selectedWeapon == 0)
         {
-            //shoot
-            StartCoroutine(FireWeapon());
-            Debug.Log("FIRING");
-            gameObject.GetComponent<AudioSource>().Play();
+            //Fire1 = left ctrl or left mouse button
+            if (Input.GetButtonDown("Fire1") & !isFiring && isScoped == true)
+            {
+                //shoot
+                StartCoroutine(FireWeapon());
+                Debug.Log("FIRING");
+                gameObject.GetComponent<AudioSource>().Play();
+            }
+
+            //Fire 2 = left alt or right mouse button
+            if (Input.GetButtonDown("Fire2"))
+            {
+                Debug.Log("SCOPE RIFLE");
+                isScoped = !isScoped;
+                animator.SetBool("Scoped", isScoped);
+
+                if (isScoped)
+                {
+                    StartCoroutine(OnScope());
+                }
+                else
+                {
+                    UnScope();
+                }
+            }
+        }
+        else if (switchWeapon.selectedWeapon == 1 || switchWeapon.selectedWeapon == 2)
+        {
+            //Fire1 = left ctrl or left mouse button
+            if (Input.GetButtonDown("Fire1") & !isFiring)
+            {
+                //shoot
+                StartCoroutine(FireWeapon());
+                Debug.Log("FIRING");
+                gameObject.GetComponent<AudioSource>().Play();
+            }
         }
     }
 
@@ -116,5 +157,24 @@ public class WeaponFire : MonoBehaviour
         yield return new WaitForSeconds(cooldown);
 
         isFiring = false;
+    }
+
+    IEnumerator OnScope()
+    {
+        yield return new WaitForSeconds(0.15f);
+
+        scopeOverlay.SetActive(true);
+        weaponCamera.SetActive(false);
+
+        normalFOV = mainCam.fieldOfView;
+        mainCam.fieldOfView = scopedFOV;
+    }
+
+    public void UnScope()
+    {
+        scopeOverlay.SetActive(false);
+        weaponCamera.SetActive(true);
+
+        mainCam.fieldOfView = normalFOV;
     }
 }

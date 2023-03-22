@@ -23,6 +23,8 @@ public class Projectile : MonoBehaviour
 
     private bool hitTarget;
 
+    private GameObject floor;
+
     // Start is called before the first frame update
     void Start()
     {
