@@ -7,7 +7,6 @@ public class WeaponSwitching : MonoBehaviour
     public int selectedWeapon = 0;
 
     public Throwing throwScript;
-    public Projectile projectileScript;
     public WeaponFire firingScript;
 
     // Start is called before the first frame update

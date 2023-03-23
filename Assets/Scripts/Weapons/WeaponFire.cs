@@ -97,8 +97,6 @@ public class WeaponFire : MonoBehaviour
     {
         isFiring = true;
 
-        Projectile throwProjectile = gameObject.GetComponent<Projectile>();
-
         //shooting stuff
         RaycastHit hit;
         if (this.GetComponentInParent<Mouse>().GetShootHitPos(out hit))
