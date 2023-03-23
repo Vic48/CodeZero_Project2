@@ -9,7 +9,7 @@ public class TargetScript : MonoBehaviour
 
     private void Start()
     {
-        //Debug.Log(health);
+        
     }
 
     //int = how much health reduced
@@ -17,8 +17,6 @@ public class TargetScript : MonoBehaviour
     {
         //minus health here
         health -= damage;
-
-        Debug.Log(health);
 
         if (health <= 0)
         {

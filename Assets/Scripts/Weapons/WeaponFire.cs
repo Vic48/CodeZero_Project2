@@ -66,7 +66,7 @@ public class WeaponFire : MonoBehaviour
                 }
             }
         }
-        else if (switchWeapon.selectedWeapon == 0 || switchWeapon.selectedWeapon == 2)
+        else if (switchWeapon.selectedWeapon == 0)
         {
             //Fire1 = left ctrl or left mouse button
             if (Input.GetButtonDown("Fire1") & !isFiring)
@@ -77,6 +77,19 @@ public class WeaponFire : MonoBehaviour
                 gameObject.GetComponent<AudioSource>().Play();
             }
         }
+        //else if (switchWeapon.selectedWeapon == 2)
+        //{
+        //    Debug.Log("GRENADE");
+        //    Throwing throwScript = GetComponent<Throwing>();
+        //    DrawProjection drawLine = GetComponent<DrawProjection>();
+
+        //    //Fire1 = left ctrl or left mouse button
+        //    if (Input.GetButtonDown("Fire1") && throwScript.readyToThrow && throwScript.totalThrows > 0)
+        //    {
+        //        Debug.Log("THROW GRENADE");
+        //        throwScript.Throw();
+        //    }
+        //}
     }
 
     //coroutine

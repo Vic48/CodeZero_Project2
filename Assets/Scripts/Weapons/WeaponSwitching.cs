@@ -52,7 +52,7 @@ public class WeaponSwitching : MonoBehaviour
         {
             selectedWeapon = 0;
             throwScript.readyToThrow = false;
-            throwScript.readyToFire = false;
+            throwScript.readyToAim = false;
         }
 
         //pistol
@@ -61,7 +61,7 @@ public class WeaponSwitching : MonoBehaviour
             selectedWeapon = 1;
             //Debug.Log("pistol");
             throwScript.readyToThrow = false;
-            throwScript.readyToFire = true;
+            throwScript.readyToAim = false;
         }
 
         //grenade
@@ -69,7 +69,7 @@ public class WeaponSwitching : MonoBehaviour
         {
             selectedWeapon = 2;
             throwScript.readyToThrow = true;
-            throwScript.readyToFire = false;
+            throwScript.readyToAim = true;
         }
 
         if (previousSelectedWeapon != selectedWeapon)
