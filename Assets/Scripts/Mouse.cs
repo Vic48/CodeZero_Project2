@@ -14,6 +14,9 @@ public class Mouse : MonoBehaviour
     public float yLookMax = 80f;
 
     private float xRotation = 0;
+
+    //private float mouseX;
+    //private float mouseY;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +31,7 @@ public class Mouse : MonoBehaviour
 
         //  ---------   VERTICAL LOOK -------------
         //change xRotation based on mouse position
+        //looking up and down
         xRotation += flipYRotation ? mouseY : -mouseY;
 
         //clamp rotation so it doesnt exceed 80 degrees

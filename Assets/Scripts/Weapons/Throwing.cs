@@ -9,6 +9,8 @@ public class Throwing : MonoBehaviour
     public Transform cam;
     public Transform attackPoint;
     public GameObject grenade;
+    public WeaponSwitching swapWeapon;
+    private LayerMask grenadeCollisionMask;
 
     [Header("Settings")]
     public int totalThrows;
@@ -16,43 +18,34 @@ public class Throwing : MonoBehaviour
 
     [Header("Throwing")]
     //public KeyCode throwKey = KeyCode.Mouse0;
-    //public KeyCode aimKey = KeyCode.Mouse1;
     public float throwForce;
     public float throwUpwardForce;
 
     public bool readyToThrow;
     public bool readyToAim;
 
+    [Header("Projectile Path")]
     [SerializeField]
     private LineRenderer _lineRenderer;
-
     [SerializeField]
     private Transform releasePos;
-
-    [Header("Display Controls")]
     [SerializeField]
     private int linePoints = 25;
     [SerializeField]
     [Range(0.01f, 0.25f)]
     private float timeBwtnPoints = 0.1f;
     [SerializeField]
-    private Rigidbody prefabGrenadeRB;
+    private Rigidbody prefabGrenadeRB; //prefab - grenade being thrown
     [SerializeField]
     private Camera _camera;
 
-    public Transform camPos;
-    private float yRotation = 0;
-
     public Mouse _mouse;
 
-    public WeaponSwitching swapWeapon;
-    private LayerMask grenadeCollisionMask;
+    Vector3 mousePos;
 
     // Start is called before the first frame update
     void Awake()
     {
-        //readyToThrow = true;
-
         int grenadeLayer = prefabGrenadeRB.gameObject.layer;
 
         for (int i = 0; i < 32; i++)
@@ -75,10 +68,8 @@ public class Throwing : MonoBehaviour
             //lock camera but follow mouse position
 
             //  ---------   update  --------
-            //game scene camera locks but scene cam moves
-            //no line renderer tho
-            //_camera.enabled = false;
-            _lineRenderer.enabled = true;
+            //game scene camera locks but no line renderer 
+            _mouse.enabled = false;
 
             //draw line
             DrawProjection();
@@ -94,7 +85,7 @@ public class Throwing : MonoBehaviour
             _lineRenderer.enabled = false;
 
             //unlock camera
-            //_camera.enabled = true;
+            _mouse.enabled = true;
         }
 
     }
@@ -102,10 +93,15 @@ public class Throwing : MonoBehaviour
     //  ----------  PROJECTION LINE    -------------
     private void DrawProjection()
     {
-        //_lineRenderer.enabled = true;
+        Cursor.lockState = CursorLockMode.Locked;
+
+        _lineRenderer.enabled = true;
+
+        //allow rotation when aiming
+
         _lineRenderer.positionCount = Mathf.CeilToInt(linePoints / timeBwtnPoints) + 1;
         Vector3 startPos = releasePos.position;
-        Vector3 startVel = throwForce * _mouse.transform.forward / prefabGrenadeRB.mass;
+        Vector3 startVel = throwForce * _camera.transform.forward / prefabGrenadeRB.mass;
         
         int i = 0;
         _lineRenderer.SetPosition(i, startPos);
