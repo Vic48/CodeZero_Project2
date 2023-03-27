@@ -40,6 +40,7 @@ public class Throwing : MonoBehaviour
     private Camera _camera;
 
     public Mouse _mouse;
+    public PlayerMovement playerMove;
 
     Vector3 mousePos;
 
@@ -63,13 +64,18 @@ public class Throwing : MonoBehaviour
         // check if aiming
         if (Input.GetButton("Fire2") && swapWeapon.selectedWeapon == 2)
         {
-            Debug.Log("THROW GRENADE");
+            //Debug.Log("THROW GRENADE");
 
             //lock camera but follow mouse position
 
             //  ---------   update  --------
-            //game scene camera locks but no line renderer 
-            _mouse.enabled = false;
+            //_mouse.enabled = false;
+            playerMove.enabled = false;
+
+            mousePos = _camera.ScreenToWorldPoint(Input.mousePosition);
+
+            //Debug.Log(mousePos.x);
+            //Debug.Log(mousePos.x + ", " + mousePos.y);
 
             //draw line
             DrawProjection();
@@ -85,7 +91,10 @@ public class Throwing : MonoBehaviour
             _lineRenderer.enabled = false;
 
             //unlock camera
-            _mouse.enabled = true;
+            //_mouse.enabled = true;
+            playerMove.enabled = true;
+
+            Cursor.lockState = CursorLockMode.Locked;
         }
 
     }
@@ -93,25 +102,32 @@ public class Throwing : MonoBehaviour
     //  ----------  PROJECTION LINE    -------------
     private void DrawProjection()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.None;
 
         _lineRenderer.enabled = true;
 
         //allow rotation when aiming
+        //throwForce = mousePos.y;
+
+        //Debug.Log(throwForce + "," + mousePos.y);
 
         _lineRenderer.positionCount = Mathf.CeilToInt(linePoints / timeBwtnPoints) + 1;
         Vector3 startPos = releasePos.position;
-        Vector3 startVel = throwForce * _camera.transform.forward / prefabGrenadeRB.mass;
-        
+        Vector3 startVel = throwForce * (mousePos - cam.transform.forward) / prefabGrenadeRB.mass;
+
+        //Vector3 startVel = throwForce * _camera.transform.forward / prefabGrenadeRB.mass;
+        //Vector3 startVel = throwForce * (mousePos - _camera.transform.position).normalized / prefabGrenadeRB.mass;
+
         int i = 0;
+
         _lineRenderer.SetPosition(i, startPos);
 
         for (float time = 0; time < linePoints; time += timeBwtnPoints)
         {
             i++;
 
-            Vector3 point = startPos + time * startVel;
-            point.y = startPos.y + startVel.y * time + (Physics.gravity.y / 2f * time * time);
+            Vector3 point = startPos + time * -startVel;
+            point.y = startPos.y + startVel.y * time + (Physics.gravity.y / 0.3f * time * time);
 
             _lineRenderer.SetPosition(i, point);
 
@@ -135,7 +151,7 @@ public class Throwing : MonoBehaviour
     {
         
         readyToThrow = false;
-        Debug.Log("FIRE IN THE HOLE");
+        //Debug.Log("FIRE IN THE HOLE");
 
         //instantiate objects to throw
         GameObject projectile = Instantiate(grenade, attackPoint.position, cam.rotation);

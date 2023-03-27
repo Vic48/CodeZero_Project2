@@ -23,6 +23,11 @@ public class WeaponFire : MonoBehaviour
     public float scopedFOV = 15f;
     private float normalFOV;
 
+    //public Throwing throwScript;
+    //public Mouse _mouse;
+
+    //Vector3 mousePos;
+
     [SerializeField] private GameObject _bulletHolePrefab; //Bullet hole
     [SerializeField] private GameObject _scrumpPrefab; //Scrump
     [SerializeField] private GameObject _xiaoPrefab; //Xiao
@@ -79,15 +84,21 @@ public class WeaponFire : MonoBehaviour
         }
         //else if (switchWeapon.selectedWeapon == 2)
         //{
-        //    Debug.Log("GRENADE");
-        //    Throwing throwScript = GetComponent<Throwing>();
-        //    DrawProjection drawLine = GetComponent<DrawProjection>();
-
-        //    //Fire1 = left ctrl or left mouse button
-        //    if (Input.GetButtonDown("Fire1") && throwScript.readyToThrow && throwScript.totalThrows > 0)
+        //    if (Input.GetButton("Fire2"))
         //    {
-        //        Debug.Log("THROW GRENADE");
-        //        throwScript.Throw();
+        //        throwScript.DrawProjection();
+        //        _mouse.enabled = false;
+
+        //        //check if left mouse button has been pressed while aiming
+        //        if (Input.GetButton("Fire1") && throwScript.readyToThrow && throwScript.totalThrows > 0)
+        //        {
+        //            StartCoroutine(FireGrenade());
+        //        }
+        //    }
+        //    else
+        //    {
+        //        throwScript._lineRenderer.enabled = false;
+        //        _mouse.enabled = true;
         //    }
         //}
     }
@@ -154,10 +165,10 @@ public class WeaponFire : MonoBehaviour
             }
 
             //check if item can be hit
-            if (hit.collider.GetComponent<TargetScript>() != null)
+            if (hit.collider.GetComponent<EnemyAI>() != null)
             {
                 //if target can be hit, attack
-                hit.collider.GetComponent<TargetScript>().TakeDamage(damage);
+                hit.collider.GetComponent<EnemyAI>().TakeDamage(damage);
             }
         }
 
@@ -169,6 +180,40 @@ public class WeaponFire : MonoBehaviour
 
         isFiring = false;
     }
+
+    //coroutine
+    //private IEnumerator FireGrenade()
+    //{
+    //    isFiring = true;
+
+    //    //shooting stuff
+    //    RaycastHit hit;
+    //    if (this.GetComponentInParent<Mouse>().GetShootHitPos(out hit))
+    //    {
+    //        //returns true if we click the mouse button
+    //        RaycastHit hitInfo; //Contains raycast hit infomation
+    //        if (Physics.Raycast(origin: transform.position, direction: transform.forward, out hitInfo))
+    //        {
+    //            throwScript.Throw();
+    //            //check if item can be hit
+    //            if (hit.collider.GetComponent<EnemyAI>() != null)
+    //            {
+    //                //if target can be hit, attack
+    //                hit.collider.GetComponent<EnemyAI>().TakeDamage(damage);
+    //            }
+
+    //        }
+
+    //    }
+
+    //    //play particle animation
+    //    //this.GetComponentInChildren<ParticleSystem>().Play();
+
+    //    //wait for cooldown
+    //    yield return new WaitForSeconds(cooldown);
+
+    //    isFiring = false;
+    //}
 
     IEnumerator OnScope()
     {

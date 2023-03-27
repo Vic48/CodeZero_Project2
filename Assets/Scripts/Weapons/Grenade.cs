@@ -42,7 +42,7 @@ public class Grenade : MonoBehaviour
         foreach (Collider nearbyObject in collidersToDestroy)
         {
             //damage
-            TargetScript enemy = nearbyObject.gameObject.GetComponent<TargetScript>();
+            EnemyAI enemy = nearbyObject.gameObject.GetComponent<EnemyAI>();
 
             if (enemy != null)
             {

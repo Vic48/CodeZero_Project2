@@ -77,7 +77,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 20
   delay: 2
-  radius: 10
+  radius: 5
   force: 700
   explosionEffect: {fileID: 4864429506998048849, guid: 52dac4b0a343e6846b335e7cdf2bbe7b, type: 3}
 --- !u!1 &326442049788956941
