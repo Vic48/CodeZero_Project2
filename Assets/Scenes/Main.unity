@@ -11794,7 +11794,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 512562906}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -12530,7 +12530,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &658043002
 Transform:
   m_ObjectHideFlags: 0
@@ -22593,14 +22593,6 @@ MonoBehaviour:
   throwUpwardForce: 5
   readyToThrow: 0
   readyToAim: 0
-  _lineRenderer: {fileID: 512562908}
-  releasePos: {fileID: 512562907}
-  linePoints: 25
-  timeBwtnPoints: 0.01
-  prefabGrenadeRB: {fileID: 2191721245067176793, guid: 3e200698e139c784096768752a4b223f, type: 3}
-  _camera: {fileID: 963194227}
-  _mouse: {fileID: 963194229}
-  playerMove: {fileID: 2036852159}
 --- !u!1 &2047461183
 GameObject:
   m_ObjectHideFlags: 0
