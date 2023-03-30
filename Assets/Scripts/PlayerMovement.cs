@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public int health;
+    public bool isDead = false;
 
     public CharacterController controller;
     public float speed;
@@ -82,5 +84,15 @@ public class PlayerMovement : MonoBehaviour
         
 
         controller.Move(velocity);
+    }
+
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+
+        if (health < 0)
+        {
+            isDead = true;
+        }
     }
 }
