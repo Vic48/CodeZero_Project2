@@ -41,7 +41,7 @@ public class EnemyAI : MonoBehaviour
 
         if (!playerInSightRange && !playerInAttackRange) Patroling();
         if (playerInSightRange && !playerInAttackRange) ChasePlayer();
-        if (playerInAttackRange && !playerInSightRange) AttackPlayer();
+        if (playerInAttackRange && playerInSightRange) AttackPlayer();
     }
 
     private void Patroling()
@@ -93,8 +93,9 @@ public class EnemyAI : MonoBehaviour
             rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
             rb.AddForce(transform.up * 8f, ForceMode.Impulse);
 
-
             ///
+
+            
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }
