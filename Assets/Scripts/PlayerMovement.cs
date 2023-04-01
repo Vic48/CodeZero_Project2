@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class PlayerMovement : MonoBehaviour
 {
     public static int health = 100;
     public bool isDead = false;
+    public TMP_Text playerHPText;
 
     public CharacterController controller;
     public float speed;
@@ -26,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        playerHPText.text = "Player HP: " + health.ToString();
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
