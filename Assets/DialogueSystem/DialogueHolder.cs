@@ -1,6 +1,7 @@
 
 using System.Collections;
 using UnityEngine;
+using System.Linq;
 
 namespace DialogueSystem 
 {
@@ -10,16 +11,22 @@ namespace DialogueSystem
         public TextAsset dialogueTextJSON;
         public DialogueLine dialogueLine;
 
-        private DialogueTextList dialogueTextList;
+        private TextFromJson text;
 
         private void Awake()
         {
-            this.dialogueTextList = JsonUtility.FromJson<DialogueTextList>(dialogueTextJSON.text);
+            this.text = JsonUtility.FromJson<TextFromJson>(dialogueTextJSON.text);
             StartCoroutine(dialogueSequence());
         }
         private IEnumerator dialogueSequence()
         {
-            foreach (DialogueText dialogueText in this.dialogueTextList.DialogueText)
+            // Search for objects where the "Character" field is "Start"
+            var filteredList = text.DialogueText.Where(obj => obj.character == "Start");
+
+            // Sort the filtered list based on the "Order" field
+            var sortedList = filteredList.OrderBy(obj => obj.order);
+
+            foreach (DialogueText dialogueText in sortedList)
             {
                 dialogueLine.transform.gameObject.SetActive(false);
                 dialogueLine.finished = false;
@@ -37,6 +44,27 @@ namespace DialogueSystem
                 //yield return new WaitUntil(() => transform.GetChild(i).GetComponent<DialogueLine>().finished);
             //}
             //gameObject.SetActive(false);
+
+        }
+
+        public IEnumerator NpcDialogueSequence()
+        {
+            gameObject.SetActive(true);
+            // Search for objects where the "Character" field is "Start"
+            var filteredList = text.DialogueText.Where(obj => obj.character == "NPC");
+
+            // Sort the filtered list based on the "Order" field
+            var sortedList = filteredList.OrderBy(obj => obj.order);
+
+            foreach (DialogueText dialogueText in sortedList)
+            {
+                dialogueLine.transform.gameObject.SetActive(false);
+                dialogueLine.finished = false;
+                dialogueLine.transform.gameObject.SetActive(true);
+                dialogueLine.setInput(dialogueText.text);
+                yield return new WaitUntil(() => dialogueLine.finished);
+            }
+            gameObject.SetActive(false);
         }
 
         private void Deactivate()

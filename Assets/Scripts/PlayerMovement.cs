@@ -1,7 +1,10 @@
+using DialogueSystem;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO.Pipes;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 using TMPro;
 
 public class PlayerMovement : MonoBehaviour
@@ -25,6 +28,8 @@ public class PlayerMovement : MonoBehaviour
 
     public Vector3 velocity;
     public bool isGrounded = false; //false = on the ground
+
+    public DialogueHolder dialogueHolder;
 
     // Update is called once per frame
     void Update()
@@ -98,6 +103,14 @@ public class PlayerMovement : MonoBehaviour
         if (health < 0)
         {
             isDead = true;
+        }
+    }
+
+    private void OnTriggerStay (Collider collision)
+    {
+        if (collision.gameObject.tag == "NPC" && !dialogueHolder.gameObject.activeSelf)
+        {
+            StartCoroutine(dialogueHolder.NpcDialogueSequence());
         }
     }
 }

@@ -1,13 +1,19 @@
 {
-  "DialogueText":
-  [
-    {
-      "order": 1,
-      "text": "SPIDERS!!!"
-    },
-    {
-      "order": 2,
-      "text": "So CrEePy! Lets Kill them!"
-    }
-  ]
+    "DialogueText": [
+        {
+            "character": "Start",
+            "order": 1,
+            "text": "SPIDERS!!!"
+        },
+        {
+            "character": "Start",
+            "order": 2,
+            "text": "So CrEePy! Lets Kill them!"
+        },
+        {
+            "character": "NPC",
+            "order": 3,
+            "text": "Hi, I am eyeball"
+        }
+    ]
 }
