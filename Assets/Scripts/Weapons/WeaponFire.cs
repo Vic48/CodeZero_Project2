@@ -181,40 +181,6 @@ public class WeaponFire : MonoBehaviour
         isFiring = false;
     }
 
-    //coroutine
-    //private IEnumerator FireGrenade()
-    //{
-    //    isFiring = true;
-
-    //    //shooting stuff
-    //    RaycastHit hit;
-    //    if (this.GetComponentInParent<Mouse>().GetShootHitPos(out hit))
-    //    {
-    //        //returns true if we click the mouse button
-    //        RaycastHit hitInfo; //Contains raycast hit infomation
-    //        if (Physics.Raycast(origin: transform.position, direction: transform.forward, out hitInfo))
-    //        {
-    //            throwScript.Throw();
-    //            //check if item can be hit
-    //            if (hit.collider.GetComponent<EnemyAI>() != null)
-    //            {
-    //                //if target can be hit, attack
-    //                hit.collider.GetComponent<EnemyAI>().TakeDamage(damage);
-    //            }
-
-    //        }
-
-    //    }
-
-    //    //play particle animation
-    //    //this.GetComponentInChildren<ParticleSystem>().Play();
-
-    //    //wait for cooldown
-    //    yield return new WaitForSeconds(cooldown);
-
-    //    isFiring = false;
-    //}
-
     IEnumerator OnScope()
     {
         yield return new WaitForSeconds(0.15f);
