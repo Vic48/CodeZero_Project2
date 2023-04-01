@@ -28,7 +28,13 @@ namespace DialogueSystem
         }
 
         private void Start()
+        { }
+
+        public void setInput(string text)
         {
+            textHolder = GetComponent<Text>();
+            textHolder.text = "";
+            this.input = text;
             StartCoroutine(WriteText(input, textHolder, textColor, textFont, delay, sound, delayBetweenLines));
         }
     }
