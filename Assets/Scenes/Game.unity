@@ -1218,7 +1218,7 @@ MonoBehaviour:
   health: 20
   walkpoint: {x: 0, y: 0, z: 0}
   walkPointRange: 5
-  timeBetweenAttacks: 0.5
+  timeBetweenAttacks: 3
   projectile: {fileID: 2798726810599033818, guid: 083deae85d96977469206cc0892f016e, type: 3}
   sightRange: 15
   attackRange: 10
@@ -13981,7 +13981,7 @@ MonoBehaviour:
   health: 20
   walkpoint: {x: 0, y: 0, z: 0}
   walkPointRange: 5
-  timeBetweenAttacks: 0.5
+  timeBetweenAttacks: 3
   projectile: {fileID: 2798726810599033818, guid: 083deae85d96977469206cc0892f016e, type: 3}
   sightRange: 15
   attackRange: 10
@@ -15691,7 +15691,7 @@ MonoBehaviour:
   health: 20
   walkpoint: {x: 0, y: 0, z: 0}
   walkPointRange: 5
-  timeBetweenAttacks: 0.5
+  timeBetweenAttacks: 3
   projectile: {fileID: 2798726810599033818, guid: 083deae85d96977469206cc0892f016e, type: 3}
   sightRange: 15
   attackRange: 10
@@ -15846,7 +15846,7 @@ MonoBehaviour:
   health: 20
   walkpoint: {x: 0, y: 0, z: 0}
   walkPointRange: 5
-  timeBetweenAttacks: 0.5
+  timeBetweenAttacks: 3
   projectile: {fileID: 2798726810599033818, guid: 083deae85d96977469206cc0892f016e, type: 3}
   sightRange: 15
   attackRange: 10
@@ -21989,7 +21989,7 @@ MonoBehaviour:
   health: 20
   walkpoint: {x: 0, y: 0, z: 0}
   walkPointRange: 5
-  timeBetweenAttacks: 0.5
+  timeBetweenAttacks: 3
   projectile: {fileID: 2798726810599033818, guid: 083deae85d96977469206cc0892f016e, type: 3}
   sightRange: 15
   attackRange: 10
@@ -22642,7 +22642,7 @@ MonoBehaviour:
   health: 20
   walkpoint: {x: 0, y: 0, z: 0}
   walkPointRange: 5
-  timeBetweenAttacks: 0.5
+  timeBetweenAttacks: 3
   projectile: {fileID: 2798726810599033818, guid: 083deae85d96977469206cc0892f016e, type: 3}
   sightRange: 15
   attackRange: 10
@@ -23206,7 +23206,7 @@ MonoBehaviour:
   health: 20
   walkpoint: {x: 0, y: 0, z: 0}
   walkPointRange: 5
-  timeBetweenAttacks: 0.5
+  timeBetweenAttacks: 3
   projectile: {fileID: 2798726810599033818, guid: 083deae85d96977469206cc0892f016e, type: 3}
   sightRange: 15
   attackRange: 10
@@ -23383,7 +23383,7 @@ MonoBehaviour:
   health: 20
   walkpoint: {x: 0, y: 0, z: 0}
   walkPointRange: 5
-  timeBetweenAttacks: 0.5
+  timeBetweenAttacks: 3
   projectile: {fileID: 2798726810599033818, guid: 083deae85d96977469206cc0892f016e, type: 3}
   sightRange: 15
   attackRange: 10
