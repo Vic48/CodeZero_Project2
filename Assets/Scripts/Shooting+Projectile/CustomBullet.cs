@@ -4,91 +4,65 @@ using UnityEngine;
 
 public class CustomBullet : MonoBehaviour
 {
-    //Asignables
-    public Rigidbody rb;
-    public GameObject explosion;
-    public LayerMask whatIsPlayer;
+    public int damage;
 
-    //Stats
-    [Range(0f, 1f)]
-    public float bounciness;
-    public bool useGravity;
+    public float delay;
+    public float radius;
+    public float force;
 
-    //Damage
-    public int explosionDamage;
-    public float explosionRange;
+    public GameObject explosionEffect;
 
-    //Lifetime
-    public int maxCollisions;
-    public float maxLifetime;
-    public bool explodeOnTouch = true;
+    float countdown;
+    bool hasExploded = false;
 
-    int collisions;
-    PhysicMaterial physics_mat;
-
-    private void Start()
+    // Start is called before the first frame update
+    void Start()
     {
-        Setup();
+        countdown = delay;
     }
 
-    private void Update()
+    // Update is called once per frame
+    void Update()
     {
-        //When to explode
-        if (collisions > maxCollisions) Explode();
+        countdown -= Time.deltaTime;
 
-        //Count down lifetime
-        maxLifetime -= Time.deltaTime;
-        if (maxLifetime <= 0) Explode();
-    }
-
-    private void Explode()
-    {
-        //Instantiate explosion
-        if (explosion != null) Instantiate(explosion, transform.position, Quaternion.identity);
-
-        //Check for player
-        Collider[] player = Physics.OverlapSphere(transform.position, explosionRange, whatIsPlayer);
-        for (int i = 0; i < player.Length; i++)
+        if (countdown <= 0f && !hasExploded)
         {
-            //Get component of player and call TakeDamage
-            player[i].GetComponent<PlayerMovement>().TakeDamage(explosionDamage);
+            Explode();
+            hasExploded = true;
+        }
+    }
+
+    public void Explode()
+    {
+        Instantiate(explosionEffect, transform.position, transform.rotation);
+
+        Collider[] collidersToDestroy = Physics.OverlapSphere(transform.position, radius);
+
+        foreach (Collider nearbyObject in collidersToDestroy)
+        {
+            //damage
+            PlayerMovement player = nearbyObject.gameObject.GetComponent<PlayerMovement>();
+
+            if (player != null)
+            {
+                player.TakeDamage(damage);
+                Debug.Log("HIT");
+            }
         }
 
-        //Add a little delay, just to make sure everything works fine
-        Invoke("Delay", 0.05f);
-    }
+        Collider[] collidersToMove = Physics.OverlapSphere(transform.position, radius);
 
-    private void Delay()
-    {
-        Destroy(gameObject);
-    }
+        foreach (Collider nearbyObject in collidersToMove)
+        {
+            Rigidbody rb = nearbyObject.GetComponent<Rigidbody>();
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        //Count up collisions
-        collisions++;
+            if (rb != null)
+            {
+                rb.AddExplosionForce(force, transform.position, radius);
+            }
+        }
 
-        //Explode if bullet hits player directly and explodeOnTouch is activated
-        if (collision.collider.CompareTag("Player") && explodeOnTouch) Explode();
-    }
-
-    private void Setup()
-    {
-        //Create a new Physic material
-        physics_mat = new PhysicMaterial();
-        physics_mat.bounciness = bounciness;
-        physics_mat.frictionCombine = PhysicMaterialCombine.Minimum;
-        physics_mat.bounceCombine = PhysicMaterialCombine.Maximum;
-        //Assign material to collider
-        GetComponent<SphereCollider>().material = physics_mat;
-
-        //Set gravity
-        rb.useGravity = useGravity;
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawWireSphere(transform.position, explosionRange);
+        Destroy(this.gameObject);
     }
 }

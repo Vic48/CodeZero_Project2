@@ -8,7 +8,9 @@ public class Timer : MonoBehaviour
 {
     public float timeValue = 90;
     public TMP_Text timerText;
-
+    
+    public GameManager gameManagerScript;
+    
     // Update is called once per frame
     void Update()
     {
@@ -20,12 +22,28 @@ public class Timer : MonoBehaviour
         {
             //Lock the time value to 0
             timeValue = 0;
-
             //Time reset
             //timeValue += 90;
         }
 
         DisplayTime(timeValue);
+
+        if (timeValue <= 0)
+        {
+            if (PlayerMovement.health > 0)
+            {
+                gameManagerScript.WinLevel();
+            }
+            else
+            {
+                gameManagerScript.LoseLevel();
+            }
+        }
+
+        if (PlayerMovement.health < 0)
+        {
+            gameManagerScript.LoseLevel();
+        }
     }
 
     void DisplayTime(float timeToDisplay)
