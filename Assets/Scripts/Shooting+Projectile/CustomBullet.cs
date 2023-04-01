@@ -51,11 +51,16 @@ public class CustomBullet : MonoBehaviour
         for (int i = 0; i < player.Length; i++)
         {
             //Get component of player and call TakeDamage
-            //player[i].GetComponent<PlayerMovement>().TakeDamage(explosionDamage);
+            player[i].GetComponent<PlayerMovement>().TakeDamage(explosionDamage);
         }
 
         //Add a little delay, just to make sure everything works fine
         Invoke("Delay", 0.05f);
+    }
+
+    private void Delay()
+    {
+        Destroy(gameObject);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -81,4 +86,9 @@ public class CustomBullet : MonoBehaviour
         rb.useGravity = useGravity;
     }
 
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(transform.position, explosionRange);
+    }
 }
