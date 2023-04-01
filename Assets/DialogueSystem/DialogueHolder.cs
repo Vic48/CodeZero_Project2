@@ -28,7 +28,6 @@ namespace DialogueSystem
 
             foreach (DialogueText dialogueText in sortedList)
             {
-                Debug.Log(dialogueText);
                 dialogueLine.transform.gameObject.SetActive(false);
                 dialogueLine.finished = false;
                 dialogueLine.transform.gameObject.SetActive(true);
@@ -46,6 +45,26 @@ namespace DialogueSystem
             //}
             //gameObject.SetActive(false);
 
+        }
+
+        public IEnumerator NpcDialogueSequence()
+        {
+            gameObject.SetActive(true);
+            // Search for objects where the "Character" field is "Start"
+            var filteredList = text.DialogueText.Where(obj => obj.character == "NPC");
+
+            // Sort the filtered list based on the "Order" field
+            var sortedList = filteredList.OrderBy(obj => obj.order);
+
+            foreach (DialogueText dialogueText in sortedList)
+            {
+                dialogueLine.transform.gameObject.SetActive(false);
+                dialogueLine.finished = false;
+                dialogueLine.transform.gameObject.SetActive(true);
+                dialogueLine.setInput(dialogueText.text);
+                yield return new WaitUntil(() => dialogueLine.finished);
+            }
+            gameObject.SetActive(false);
         }
 
         private void Deactivate()
