@@ -25,6 +25,9 @@ public class PauseMenu : MonoBehaviour
             Time.timeScale = 0;
             AudioListener.pause = true;
             pauseMenu.SetActive(true);
+
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
 
         else if (Time.timeScale == 0)
@@ -32,6 +35,9 @@ public class PauseMenu : MonoBehaviour
             Time.timeScale = previousTimeScale;
             AudioListener.pause = false;
             pauseMenu.SetActive(false);
+
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
     }
 
