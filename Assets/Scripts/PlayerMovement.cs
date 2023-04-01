@@ -1,6 +1,9 @@
+using DialogueSystem;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO.Pipes;
 using UnityEngine;
+using System.Linq;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -22,6 +25,11 @@ public class PlayerMovement : MonoBehaviour
 
     public Vector3 velocity;
     public bool isGrounded = false; //false = on the ground
+
+    public TextAsset dialogueTextJSON;
+    public DialogueLine dialogueLine;
+
+    private TextFromJson text;
 
     // Update is called once per frame
     void Update()
@@ -94,5 +102,32 @@ public class PlayerMovement : MonoBehaviour
         {
             isDead = true;
         }
+    }
+
+    private void OnTriggerStay (Collider collision)
+    {
+        if (collision.gameObject.tag == "NPC")
+        {
+            StartCoroutine(NpcDialogueSequence());
+        }
+    }
+    private IEnumerator NpcDialogueSequence()
+    {
+        // Search for objects where the "Character" field is "Start"
+        var filteredList = text.DialogueText.Where(obj => obj.character == "NPC");
+
+        // Sort the filtered list based on the "Order" field
+        var sortedList = filteredList.OrderBy(obj => obj.order);
+
+        foreach (DialogueText dialogueText in sortedList)
+        {
+            Debug.Log(dialogueText);
+            dialogueLine.transform.gameObject.SetActive(false);
+            dialogueLine.finished = false;
+            dialogueLine.transform.gameObject.SetActive(true);
+            dialogueLine.setInput(dialogueText.text);
+            yield return new WaitUntil(() => dialogueLine.finished);
+        }
+        gameObject.SetActive(false);
     }
 }
