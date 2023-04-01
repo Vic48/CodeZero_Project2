@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public int health;
+    public static int health = 100;
     public bool isDead = false;
 
     public CharacterController controller;
@@ -85,6 +85,7 @@ public class PlayerMovement : MonoBehaviour
 
         controller.Move(velocity);
     }
+
 
     public void TakeDamage(int damage)
     {
